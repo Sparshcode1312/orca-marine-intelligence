@@ -7,12 +7,22 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):
     app_name: str = "ORCA Marine Intelligence API"
-    environment: Literal["development", "testing", "production"] = "development"
+
+    environment: Literal[
+        "development",
+        "testing",
+        "production",
+    ] = "development"
+
     api_v1_prefix: str = "/api/v1"
 
     cors_origins: list[str] = Field(
-        default_factory=lambda: ["http://localhost:5173"]
+        default_factory=lambda: [
+            "http://localhost:5173",
+        ]
     )
+
+    cors_origin_regex: str | None = None
 
     model_config = SettingsConfigDict(
         env_file=".env",
